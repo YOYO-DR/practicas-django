@@ -1,0 +1,7 @@
+.radiosinput div {
+  display: flex;
+  margin: 0 7px;
+}
+.labelinput {
+  margin: 0 auto;
+}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% load widget_tweaks %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock head %}
+{% block content %}
+<div class="d-flex justify-content-center mt-5">
+  <form method="post" class="d-flex justify-content-between flex-column">
+    {% if error %}
+    <p class="text-danger">{{error}}</p>
+    {% endif %}
+    {% csrf_token %} {% for field in form.visible_fields %}
+    {% if field.label.lower == "enterado" %}
+    <div class="mb-3 ">
+      <label class="form-label d-flex justify-content-between"
+        >{{field.label}} {{field|add_class:'d-flex justify-content-around radiosinput'}}</label>
+      </label>
+    </div>
+    {% else %}
+    <div class="mb-3">
+      <label class="form-label d-flex justify-content-between"
+        >{{field.label}} {{field|attr:'style:margin:0 5px;'}}
+      </label>
+    </div>
+    {% endif %}
+    
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Enviar</button>
+  </form>
+</div>
+
+{% endblock content %}
