@@ -22,7 +22,7 @@ class Enterado(models.Model):
 
 class Votacion(models.Model):
   nombreApellido = models.CharField(max_length=100,verbose_name='Nombre y Apellido',null=False, blank=False)
-  alias = models.CharField(max_length=100,verbose_name='Alias',null=True, blank=True)
+  alias = models.CharField(max_length=100,verbose_name='Alias (opcional)',null=True, blank=True)
   cc = models.IntegerField(verbose_name='N° Cedula',unique=True,null=False, blank=False)
   email = models.EmailField(verbose_name='Email',null=False, blank=False)
   region = models.ForeignKey(Region,on_delete=models.CASCADE, null=False, blank=False,verbose_name='Region')

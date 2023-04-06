@@ -5,3 +5,7 @@
 .labelinput {
   margin: 0 auto;
 }
+.votaciones {
+  max-height: 70vh;
+  overflow-y: scroll;
+}

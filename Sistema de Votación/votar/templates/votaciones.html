@@ -1,33 +1,82 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock head %}
+{% block content %}
 <h1>Votaciones</h1>
 <div class="row">
-  <section class="col-4"></section>
-  <section class="col-8">
+  <section class="col-4 me-2">
+    <div class="row">
+      <h2 class="col">Estadisticas</h2>
+      <article class="col-12 border text-center mb-2">
+        <span class="text-primary">Candidatos</span>
+
+        <div class="d-flex flex-column">
+          {% for candidato,can in candidatos.items %}
+          <span><b>{{candidato}}:</b> {{can}}</span>
+          {% endfor %}
+        </div>
+      </article>
+      <article class="col border text-center me-1">
+        <span class="text-primary">Regiones</span>
+        <div class="d-flex flex-column">
+          {% for region,can in regiones.items %}
+          <span><b>{{region}}:</b> {{can}}</span>
+          {% endfor %}
+        </div>
+      </article>
+      <article class="col border text-center ms-1">
+        <span class="text-primary">Comunas</span>
+        <div class="d-flex flex-column">
+          {% for comuna,can in comunas.items %}
+          <span><b>{{comuna}}:</b> {{can}}</span>
+          {% endfor %}
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="col p-3 border votaciones">
     <div class="accordion accordion-flush" id="accordionFlush">
       {% for votacion in votaciones %}
-      <div class="accordion-item border">
+      <div class="accordion-item border mb-2">
         <h2 class="accordion-header">
           <button
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseOne"
+            data-bs-target="#flush-collapseOne{{votacion.id}}"
             aria-expanded="false"
             aria-controls="flush-collapseOne"
           >
             Votacion #{{votacion.id}}
           </button>
         </h2>
-        {% comment %} Revisar lo del despliegue del acordion {% endcomment %}
-        <div 
-          id="flush-collapseOne"
+        <div
+          id="flush-collapseOne{{votacion.id}}"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionFlush"
         >
-          <div class="accordion-body">
-            Placeholder content for this accordion, which is intended to
-            demonstrate the <code>.accordion-flush</code> class. This is the
-            first item's accordion body.
+          <div class="accordion-body row">
+            <div class="col d-flex flex-column">
+              <span
+                ><b>Nombre y Apellido:</b>
+                {{votacion.nombreApellido|title}}</span
+              >
+              {% if votacion.alias %}
+              <span><b>Alias:</b> {{votacion.alias|title}}</span>
+              {% endif %}
+              <span><b>Cédula:</b> {{votacion.cc|title}}</span>
+              <span><b>Email:</b> {{votacion.email|title}}</span>
+            </div>
+            <div class="col d-flex flex-column">
+              <span><b>Región:</b> {{votacion.region.nombre|title}}</span>
+              <span><b>Comuna:</b> {{votacion.comuna.nombre|title}}</span>
+              <span><b>Candidato:</b> {{votacion.candidato.nombre|title}}</span>
+              <span class="text-success"
+                ><b>Enterado:</b> {{votacion.enterado.nombre|title}}</span
+              >
+            </div>
           </div>
         </div>
       </div>
